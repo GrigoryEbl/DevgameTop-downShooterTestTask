@@ -1,23 +1,20 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class CameraMover : MonoBehaviour
 {
     [SerializeField] private Transform _player;
-    [SerializeField] private int _cameraPositionZ;
-    [SerializeField] private int _cameraPositionY;
-    [SerializeField] private float _offsetX;
-    [SerializeField] private float _offsetZ;
+    [SerializeField] private float _speed = 3f;
 
     [Header("Positions")]
     [SerializeField] private float _maxPositionX = 40f;
     [SerializeField] private float _minPositionX = -40;
     [SerializeField] private float _maxPositionZ = -25f;
     [SerializeField] private float _minPositionZ = -60f;
-    [SerializeField] private float _maxPositionY = 9f;
-    [SerializeField] private float _minPositionY = 3.5f;
 
     private Vector3 _target;
     private Transform _transform;
+    private float _positionY = 10;
 
     private void Awake()
     {
@@ -27,9 +24,8 @@ public class CameraMover : MonoBehaviour
     private void Update()
     {
         _target = _player.position;
-        _target.z += _cameraPositionZ;
-        _target.y += _cameraPositionY;
-        _transform.position = _target;
+        _target.y += _positionY;
+        _transform.position = Vector3.Lerp(_transform.position, _target, Time.deltaTime * _speed);
         ClampPosition();
     }
 
@@ -38,7 +34,6 @@ public class CameraMover : MonoBehaviour
         Vector3 clampedPosition = _transform.position;
 
         clampedPosition.x = Mathf.Clamp(clampedPosition.x, _minPositionX, _maxPositionX);
-        clampedPosition.y = Mathf.Clamp(clampedPosition.y, _minPositionY, _maxPositionY);
         clampedPosition.z = Mathf.Clamp(clampedPosition.z, _minPositionZ, _maxPositionZ);
 
         _transform.position = clampedPosition;
