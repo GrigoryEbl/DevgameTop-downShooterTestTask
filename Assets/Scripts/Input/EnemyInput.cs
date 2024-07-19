@@ -17,7 +17,8 @@ public class EnemyInput : MonoBehaviour
 
     private void Update()
     {
-        SetTarget();
+        if (_target != null)
+            SetTarget();
     }
 
     private void SetTarget()
