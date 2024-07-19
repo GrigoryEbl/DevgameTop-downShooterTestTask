@@ -6,19 +6,29 @@ public class Mover : MonoBehaviour
     [SerializeField] private float _rotationSpeed = 1f;
 
     private Transform _transform;
+    private Rigidbody _rigidbody;
 
     private void Awake()
     {
+        _rigidbody = GetComponent<Rigidbody>();
         _transform = transform;
     }
 
     public void Move(Vector3 direction)
     {
-        _transform.position = Vector3.MoveTowards(_transform.position, direction + _transform.position, _speed * Time.deltaTime);
+        _rigidbody.velocity = direction * _speed;
     }
 
     public void Rotate(Quaternion targetRotation)
     {
         _transform.rotation = Quaternion.Slerp(_transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
+    }
+
+    public void Stop()
+    {
+        if (_rigidbody != null)
+        {
+            _rigidbody.velocity = Vector3.zero;
+        }
     }
 }

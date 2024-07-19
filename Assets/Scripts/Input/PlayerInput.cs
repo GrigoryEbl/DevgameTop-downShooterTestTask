@@ -15,7 +15,10 @@ public class PlayerInput : MonoBehaviour
     {
         Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
-        _mover.Move(direction);
+        if (direction != Vector3.zero)
+            _mover.Move(direction);
+        else
+            _mover.Stop();
 
         if (Input.GetMouseButton(0))
             _mover.Rotate(GetTargetDirection());
