@@ -5,6 +5,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] private Transform _shootPoint;
     [SerializeField] private int _damage;
     [SerializeField] private float _speedShoot;
+    [SerializeField] private ParticleSystem _particleSystem;
 
     private Timer _timer;
 
@@ -19,6 +20,8 @@ public class Weapon : MonoBehaviour
         {
             if (Physics.Raycast(_shootPoint.position, _shootPoint.forward, out RaycastHit hitInfo))
             {
+                _particleSystem.Play();
+
                 if (hitInfo.collider.TryGetComponent(out Health health))
                 {
                     health.TakeDamage(_damage);
