@@ -1,18 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Weapon _startWeapon;
+
+    private Weapon _weapon;
+
+    private void Awake()
     {
-        
+        _weapon = _startWeapon;
+    }
+    private void Update()
+    {
+        if(Input.GetMouseButton(0))
+        {
+            Shoot();
+        }    
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if(other.TryGetComponent(out Enemy enemy))
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void Shoot()
+    {
+        _weapon.Shoot();
     }
 }
