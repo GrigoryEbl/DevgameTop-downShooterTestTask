@@ -1,47 +1,66 @@
 ﻿using UnityEngine;
 
-public abstract class Spawner : MonoBehaviour
+public class Spawner : MonoBehaviour
 {
-    [SerializeField] protected GameObject ObjectPrefab;
     [SerializeField] private float _startDelay;
+    [SerializeField] private GameObject[] _objectPrefabs;
+    [SerializeField] private DelayDecrementor _delayDecrementor;
     [SerializeField] private bool _isFieldView;
-    
+    [SerializeField] private bool _isDecrementDelay;
+
     private Timer _timer;
     private float _currentDelay;
-
-    public float StartDelay => _startDelay;
-    public bool IsFieldView => _isFieldView;
 
     private void Awake()
     {
         _timer = GetComponent<Timer>();
         _currentDelay = _startDelay;
         StartTimer();
+
+        if (_isDecrementDelay)
+            _delayDecrementor.Init(_currentDelay);
     }
 
     private void OnEnable()
     {
         _timer.TimeEmpty += OnTimeEmpty;
+        _delayDecrementor.DelayDecremented += OnDelayDecremented;
     }
 
     private void OnDisable()
     {
         _timer.TimeEmpty -= OnTimeEmpty;
+        _delayDecrementor.DelayDecremented -= OnDelayDecremented;
     }
 
-    private void Update()
+    private void OnTimeEmpty()
     {
-        if (_timer == null)
-        {
-            Debug.LogError("Timer component not found on the same GameObject.");
-        }
-        else
-            print("Timer has");
+        Spawn();
     }
 
-    public abstract void Spawn();
+    private void Spawn()
+    {
+        Vector3 position = GetRandomPosition();
 
-    public Vector3 GetRandomPosition()
+        if (_isFieldView == false)
+        {
+            while (true)
+            {
+                if (IsVisible(Camera.main, position) == false)
+                {
+                    Instantiate(GetObject(), position, Quaternion.identity);
+                    StartTimer();
+                    return;
+                }
+                else
+                {
+                    position = GetRandomPosition();
+                }
+            }
+        }
+    }
+
+    private Vector3 GetRandomPosition()
     {
         float maxX = 20f;
         float minX = -20f;
@@ -51,24 +70,51 @@ public abstract class Spawner : MonoBehaviour
         return new Vector3(Random.Range(minX, maxX), 0, (Random.Range(minZ, maxZ)));
     }
 
-    public bool IsVisible(Camera camera, Vector3 point)
+    private bool IsVisible(Camera camera, Vector3 point)
     {
         Vector3 viewportPoint = camera.WorldToViewportPoint(point);
         return viewportPoint.x >= 0 && viewportPoint.x <= 1 && viewportPoint.y >= 0 && viewportPoint.y <= 1 && viewportPoint.z >= 0;
     }
 
-    public void ChangeDelay(float delay)
+    private void OnDelayDecremented(float delay)
     {
         _currentDelay = delay;
     }
 
-    public void StartTimer()
+    private void StartTimer()
     {
         _timer.StartWork(_currentDelay);
     }
 
-    private void OnTimeEmpty()
+    private GameObject GetObject()
     {
-        Spawn();
+        int chance = CalculateChance();
+
+        int chanceOne = 60;
+        int chanceTwo = 90;
+        int chanceThree = 100;
+
+        if (chance <= chanceOne)
+        {
+            return _objectPrefabs[0];
+        }
+        else if (chance <= chanceTwo)
+        {
+            return _objectPrefabs[1];
+        }
+        else if (chance <= chanceThree)
+        {
+            return _objectPrefabs[2];
+        }
+
+        return null;
+    }
+
+    private int CalculateChance()
+    {
+        int maxChance = 100;
+
+        int chance = Random.Range(0, maxChance);
+        return chance;
     }
 }

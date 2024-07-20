@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
     [SerializeField] private bool _isInvulnerable;
 
     private Weapon _weapon;
+
     private void Awake()
     {
         _weapon = _startWeapon;

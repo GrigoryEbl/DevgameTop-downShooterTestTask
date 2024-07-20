@@ -16,11 +16,12 @@ public class DelayDecrementor : MonoBehaviour
 
     private void Awake()
     {
-        _timer = GetComponent<Timer>();
+        
     }
 
     public void Init(float startDelay)
     {
+        _timer = GetComponent<Timer>();
         _currentDelay = startDelay;
         _timer.StartWork(_delay);
     }

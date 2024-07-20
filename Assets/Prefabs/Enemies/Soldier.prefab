@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 3243726148168671598}
   - component: {fileID: 5222376055908700847}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Soldier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -192,6 +192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1debb5e4f62d5cb4da1e80a5c2908909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _pointsForKilling: 7
 --- !u!114 &5222376055908700847
 MonoBehaviour:
   m_ObjectHideFlags: 0
