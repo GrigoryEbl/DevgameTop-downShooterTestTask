@@ -28,7 +28,7 @@ public class PlayerInput : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            _targetRotation = Quaternion.LookRotation(hit.point - transform.position, Vector3.up);
+            _targetRotation = Quaternion.LookRotation(hit.point - transform.position, Vector3.up).normalized;
         }
 
         return _targetRotation;
