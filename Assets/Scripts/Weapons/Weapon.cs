@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
@@ -5,40 +6,63 @@ public class Weapon : MonoBehaviour
     [SerializeField] private Transform _shootPoint;
     [SerializeField] private int _damage;
     [SerializeField] private float _speedShoot;
-    [SerializeField] private ParticleSystem _particleSystem;
+    
 
     private Timer _timer;
+
+    public float SpeedShoot => _speedShoot;
+    public Timer Timer => _timer;
+    public int Damage => _damage;
+    public Transform ShootPoint => _shootPoint;
 
     private void Awake()
     {
         _timer = GetComponent<Timer>();
     }
 
-    public void Shoot()
+    public virtual void Shoot()
     {
-        if (_timer.IsWork == false)
+        if (CanShoot())
         {
             if (Physics.Raycast(_shootPoint.position, _shootPoint.forward, out RaycastHit hitInfo))
             {
-                _particleSystem.Play();
+                Debug.DrawRay(ShootPoint.position, _shootPoint.forward * hitInfo.distance, Color.red, 1f);
 
                 if (hitInfo.collider.TryGetComponent(out Health health))
                 {
-                    health.TakeDamage(_damage);
+                    ApplyDamage(health);
+                    print("shoot");
                 }
             }
 
-            _timer.StartWork(_speedShoot);
+            _timer.StartWork(1f / _speedShoot);
         }
     }
 
-    private void OnDrawGizmos()
+    public bool CanShoot()
     {
-        Gizmos.color = Color.yellow;
+        if (_timer.IsWork == false)
+            return true;
 
-        if (Physics.Raycast(_shootPoint.position, _shootPoint.forward, out RaycastHit hitInfo))
-        {
-            Gizmos.DrawLine(_shootPoint.position, hitInfo.point);
-        }
+        return false;
     }
+
+    public void ApplyDamage(Health health)
+    {
+        health.TakeDamage(_damage);
+    }
+
+    public void VisualizeEffectShoot()
+    {
+    }
+
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.yellow;
+
+    //    if (Physics.Raycast(_shootPoint.position, _shootPoint.forward, out RaycastHit hitInfo))
+    //    {
+    //        Gizmos.DrawLine(_shootPoint.position, hitInfo.point);
+    //    }
+    //}
 }

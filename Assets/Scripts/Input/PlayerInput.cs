@@ -10,8 +10,7 @@ public class PlayerInput : MonoBehaviour
     {
         _mover = GetComponent<Mover>();
     }
-
-    private void Update()
+    private void FixedUpdate()
     {
         Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
@@ -20,8 +19,7 @@ public class PlayerInput : MonoBehaviour
         else
             _mover.Stop();
 
-        if (Input.GetMouseButton(0))
-            _mover.Rotate(GetTargetDirection());
+        _mover.Rotate(GetTargetDirection());
     }
 
     private Quaternion GetTargetDirection()
@@ -30,7 +28,7 @@ public class PlayerInput : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            _targetRotation = Quaternion.LookRotation(hit.point - transform.position, Vector3.up);
+            _targetRotation = Quaternion.LookRotation(hit.point - transform.position, Vector3.up).normalized;
         }
 
         return _targetRotation;

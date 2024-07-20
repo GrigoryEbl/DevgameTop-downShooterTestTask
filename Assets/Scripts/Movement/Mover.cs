@@ -21,6 +21,8 @@ public class Mover : MonoBehaviour
 
     public void Rotate(Quaternion targetRotation)
     {
+        targetRotation.x = 0; 
+        targetRotation.z = 0;
         _rigidbody.rotation = Quaternion.Slerp(_transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
     }
 
