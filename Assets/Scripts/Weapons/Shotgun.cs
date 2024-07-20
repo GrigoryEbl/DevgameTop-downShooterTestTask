@@ -27,7 +27,7 @@ public class Shotgun : Weapon
                 }
             }
 
-            Timer.StartWork(SpeedShoot);
+            Timer.StartWork(1f / SpeedShoot);
         }
     }
 

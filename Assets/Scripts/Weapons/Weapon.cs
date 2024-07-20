@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
@@ -36,7 +37,7 @@ public class Weapon : MonoBehaviour
                 }
             }
 
-            _timer.StartWork(_speedShoot);
+            _timer.StartWork(1f / _speedShoot);
         }
     }
 
