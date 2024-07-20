@@ -7,20 +7,27 @@ public class Shotgun : Weapon
 
     public override void Shoot()
     {
-        for (int i = 0; i < _pelletCount; i++)
+        if (CanShoot())
         {
-            Vector3 direction = GetRandomDirectionInCone(transform.forward, _spreadAngle);
-
-            if (Physics.Raycast(Shootpoint.position, direction, out RaycastHit hitInfo, Distance))
+            for (int i = 0; i < _pelletCount; i++)
             {
-                Debug.DrawRay(transform.position, direction * hitInfo.distance, Color.red, 1f);
-                VisualizeEffectShoot();
+                Vector3 direction = GetRandomDirectionInCone(transform.forward, _spreadAngle);
 
-                if (hitInfo.collider.TryGetComponent(out Health health))
+                if (Physics.Raycast(Shootpoint.position, direction, out RaycastHit hitInfo, Distance))
                 {
-                    ApplyDamage(health);
+                    Debug.DrawRay(Shootpoint.position, direction * hitInfo.distance, Color.red, 1f);
+
+                    VisualizeEffectShoot();
+
+                    if (hitInfo.collider.TryGetComponent(out Health health))
+                    {
+                        ApplyDamage(health);
+                        print("Shoot shotgun");
+                    }
                 }
             }
+
+            Timer.StartWork(SpeedShoot);
         }
     }
 

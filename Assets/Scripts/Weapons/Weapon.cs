@@ -10,6 +10,8 @@ public class Weapon : MonoBehaviour
 
     private Timer _timer;
 
+    public float SpeedShoot => _speedShoot;
+    public Timer Timer => _timer;
     public float Distance => _distance;
     public int Damage => _damage;
     public Transform Shootpoint => _shootPoint;
@@ -21,7 +23,7 @@ public class Weapon : MonoBehaviour
 
     public virtual void Shoot()
     {
-        if (_timer.IsWork == false)
+        if (CanShoot())
         {
             if (Physics.Raycast(_shootPoint.position, _shootPoint.forward, out RaycastHit hitInfo))
             {
@@ -30,12 +32,20 @@ public class Weapon : MonoBehaviour
                 if (hitInfo.collider.TryGetComponent(out Health health))
                 {
                     ApplyDamage(health);
-                    
+                    print("shoot");
                 }
             }
 
             _timer.StartWork(_speedShoot);
         }
+    }
+
+    public bool CanShoot()
+    {
+        if (_timer.IsWork == false)
+            return true;
+
+        return false;
     }
 
     public void ApplyDamage(Health health)
