@@ -6,16 +6,14 @@ public class Weapon : MonoBehaviour
     [SerializeField] private Transform _shootPoint;
     [SerializeField] private int _damage;
     [SerializeField] private float _speedShoot;
-    [SerializeField] private ParticleSystem _particleSystem;
-    [SerializeField] private float _distance;
+    
 
     private Timer _timer;
 
     public float SpeedShoot => _speedShoot;
     public Timer Timer => _timer;
-    public float Distance => _distance;
     public int Damage => _damage;
-    public Transform Shootpoint => _shootPoint;
+    public Transform ShootPoint => _shootPoint;
 
     private void Awake()
     {
@@ -28,7 +26,7 @@ public class Weapon : MonoBehaviour
         {
             if (Physics.Raycast(_shootPoint.position, _shootPoint.forward, out RaycastHit hitInfo))
             {
-                _particleSystem.Play();
+                Debug.DrawRay(ShootPoint.position, _shootPoint.forward * hitInfo.distance, Color.red, 1f);
 
                 if (hitInfo.collider.TryGetComponent(out Health health))
                 {
@@ -56,16 +54,15 @@ public class Weapon : MonoBehaviour
 
     public void VisualizeEffectShoot()
     {
-        _particleSystem.Play();
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.yellow;
 
-        if (Physics.Raycast(_shootPoint.position, _shootPoint.forward, out RaycastHit hitInfo))
-        {
-            Gizmos.DrawLine(_shootPoint.position, hitInfo.point);
-        }
-    }
+    //    if (Physics.Raycast(_shootPoint.position, _shootPoint.forward, out RaycastHit hitInfo))
+    //    {
+    //        Gizmos.DrawLine(_shootPoint.position, hitInfo.point);
+    //    }
+    //}
 }

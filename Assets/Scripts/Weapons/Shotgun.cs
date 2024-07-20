@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Shotgun : Weapon
 {
+    [SerializeField] private float _distance;
     private readonly int _pelletCount = 5;
     private readonly float _spreadAngle = 10f;
 
@@ -13,9 +14,9 @@ public class Shotgun : Weapon
             {
                 Vector3 direction = GetRandomDirectionInCone(transform.forward, _spreadAngle);
 
-                if (Physics.Raycast(Shootpoint.position, direction, out RaycastHit hitInfo, Distance))
+                if (Physics.Raycast(ShootPoint.position, direction, out RaycastHit hitInfo, _distance))
                 {
-                    Debug.DrawRay(Shootpoint.position, direction * hitInfo.distance, Color.red, 1f);
+                    Debug.DrawRay(ShootPoint.position, direction * hitInfo.distance, Color.red, 1f);
 
                     VisualizeEffectShoot();
 
