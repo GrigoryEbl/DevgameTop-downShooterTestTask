@@ -5104,6 +5104,7 @@ MonoBehaviour:
   _shootPoint: {fileID: 4204233345641137054}
   _damage: 3
   _speedShoot: 2
+  _name: Pistol
 --- !u!114 &4223239103818349770
 MonoBehaviour:
   m_ObjectHideFlags: 0

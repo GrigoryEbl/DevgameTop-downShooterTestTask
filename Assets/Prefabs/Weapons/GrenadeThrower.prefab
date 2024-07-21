@@ -151,6 +151,7 @@ MonoBehaviour:
   _shootPoint: {fileID: 3330015012674413906}
   _damage: 0
   _speedShoot: 0.66
+  _name: GrenadeThrower
   _grenadePrefab: {fileID: 3276387741546372918, guid: 0ea69b659659ef44697252c7f532b235, type: 3}
 --- !u!114 &9168374069021831636
 MonoBehaviour:

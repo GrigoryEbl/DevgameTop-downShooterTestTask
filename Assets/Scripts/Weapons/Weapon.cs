@@ -6,9 +6,11 @@ public class Weapon : MonoBehaviour
     [SerializeField] private Transform _shootPoint;
     [SerializeField] private int _damage;
     [SerializeField] private float _speedShoot;
+    [SerializeField] private string _name;
     
     private Timer _timer;
 
+    public string Name => _name;
     public float SpeedShoot => _speedShoot;
     public Timer Timer => _timer;
     public int Damage => _damage;

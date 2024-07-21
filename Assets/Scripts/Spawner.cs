@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Spawner : MonoBehaviour
+public abstract class Spawner : MonoBehaviour
 {
     [SerializeField] private float _startDelay;
     [SerializeField] private GameObject[] _objectPrefabs;
@@ -12,14 +12,13 @@ public class Spawner : MonoBehaviour
     public bool IsFieldView => _isFieldView;
     public float CurrentDelay => _currentDelay;
     public GameObject[] ObjectsPrefabs => _objectPrefabs;
+    public Timer Timer => _timer;
 
     private void Awake()
     {
-        _timer = GetComponent<Timer>();
-        _currentDelay = _startDelay;
-        StartTimer();
+        Init();
     }
-
+   
     private void OnEnable()
     {
         _timer.TimeEmpty += OnTimeEmpty;
@@ -30,32 +29,19 @@ public class Spawner : MonoBehaviour
         _timer.TimeEmpty -= OnTimeEmpty;
     }
 
-    private void OnTimeEmpty()
+    public void Init()
+    {
+        _timer = GetComponent<Timer>();
+        _currentDelay = _startDelay;
+        StartTimer();
+    }
+
+    public void OnTimeEmpty()
     {
         Spawn();
     }
 
-    public virtual void Spawn()
-    {
-        Vector3 position = GetRandomPosition();
-
-        if (_isFieldView)
-        {
-            while (true)
-            {
-                if (IsVisible(Camera.main, position))
-                {
-                    Instantiate(_objectPrefabs[Random.Range(0, _objectPrefabs.Length)], position, Quaternion.identity);
-                    StartTimer();
-                    return;
-                }
-                else
-                {
-                    position = GetRandomPosition();
-                }
-            }
-        }
-    }
+    public abstract void Spawn();
 
     public Vector3 GetRandomPosition()
     {
@@ -92,6 +78,10 @@ public class Spawner : MonoBehaviour
 
     public void StartTimer()
     {
+        if(_timer != null)
         _timer.StartWork(_currentDelay);
     }
+
+    public abstract GameObject GetObject();
+    
 }

@@ -6,17 +6,20 @@ public class EnemySpawner : Spawner
 
     private void Awake()
     {
+        Init();
         _delayDecrementor.Init(CurrentDelay);
     }
 
     private void OnEnable()
     {
         _delayDecrementor.DelayDecremented += OnDelayDecremented;
+        Timer.TimeEmpty += OnTimeEmpty;
     }
 
     private void OnDisable()
     {
         _delayDecrementor.DelayDecremented -= OnDelayDecremented;
+        Timer.TimeEmpty -= OnTimeEmpty;
     }
 
     public override void Spawn()
@@ -41,13 +44,13 @@ public class EnemySpawner : Spawner
         }
     }
 
-    private GameObject GetObject()
+    public override GameObject GetObject()
     {
-        int percent = CalculateChance();
-
         int chanceOne = 60;
         int chanceTwo = 90;
         int chanceThree = 100;
+
+        int percent = CalculateChance();
 
         if (percent <= chanceOne)
         {

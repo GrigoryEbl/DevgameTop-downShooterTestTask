@@ -54,6 +54,7 @@ MonoBehaviour:
   _shootPoint: {fileID: 706056309329457550}
   _damage: 1
   _speedShoot: 10
+  _name: Automatic
 --- !u!114 &2985215220238654324
 MonoBehaviour:
   m_ObjectHideFlags: 0
