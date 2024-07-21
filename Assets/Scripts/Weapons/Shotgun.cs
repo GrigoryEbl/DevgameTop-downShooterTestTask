@@ -16,6 +16,8 @@ public class Shotgun : Weapon
     {
         if (CanShoot())
         {
+            VisualizeEffectShoot();
+
             for (int i = 0; i < _pelletCount; i++)
             {
                 Vector3 direction = GetRandomDirectionInCone(transform.forward, _spreadAngle);

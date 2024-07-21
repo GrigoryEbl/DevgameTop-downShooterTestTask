@@ -52,6 +52,7 @@ MonoBehaviour:
   _damage: 1
   _speedShoot: 10
   _name: Automatic
+  _particleSystem: {fileID: 95930070428311567}
 --- !u!114 &2985215220238654324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,7 +297,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.2
+      scalar: 0.1
       minScalar: 5
       maxCurve:
         serializedVersion: 2

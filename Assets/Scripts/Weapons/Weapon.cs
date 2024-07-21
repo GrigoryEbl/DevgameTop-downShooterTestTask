@@ -7,7 +7,8 @@ public class Weapon : MonoBehaviour
     [SerializeField] private int _damage;
     [SerializeField] private float _speedShoot;
     [SerializeField] private string _name;
-    
+    [SerializeField] private ParticleSystem _particleSystem;
+
     private Timer _timer;
 
     public string Name => _name;
@@ -31,6 +32,8 @@ public class Weapon : MonoBehaviour
     {
         if (CanShoot())
         {
+            VisualizeEffectShoot();
+
             if (Physics.Raycast(_shootPoint.position, _shootPoint.forward, out RaycastHit hitInfo))
             {
                 Debug.DrawRay(ShootPoint.position, _shootPoint.forward * hitInfo.distance, Color.red, 1f);
@@ -60,9 +63,6 @@ public class Weapon : MonoBehaviour
 
     public void VisualizeEffectShoot()
     {
-        //
-        //
-        //
-        //
+        _particleSystem.Play();
     }
 }

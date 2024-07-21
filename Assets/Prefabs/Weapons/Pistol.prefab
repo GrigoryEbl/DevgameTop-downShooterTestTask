@@ -232,7 +232,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5
+      scalar: 0.1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -5058,6 +5058,7 @@ MonoBehaviour:
   _damage: 3
   _speedShoot: 2
   _name: Pistol
+  _particleSystem: {fileID: 3647850241362531916}
 --- !u!114 &4223239103818349770
 MonoBehaviour:
   m_ObjectHideFlags: 0
