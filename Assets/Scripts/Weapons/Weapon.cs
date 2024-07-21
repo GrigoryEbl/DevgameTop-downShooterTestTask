@@ -7,7 +7,6 @@ public class Weapon : MonoBehaviour
     [SerializeField] private int _damage;
     [SerializeField] private float _speedShoot;
     
-
     private Timer _timer;
 
     public float SpeedShoot => _speedShoot;
@@ -55,14 +54,4 @@ public class Weapon : MonoBehaviour
     public void VisualizeEffectShoot()
     {
     }
-
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.color = Color.yellow;
-
-    //    if (Physics.Raycast(_shootPoint.position, _shootPoint.forward, out RaycastHit hitInfo))
-    //    {
-    //        Gizmos.DrawLine(_shootPoint.position, hitInfo.point);
-    //    }
-    //}
 }

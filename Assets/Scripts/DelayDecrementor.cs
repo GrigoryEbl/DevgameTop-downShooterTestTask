@@ -14,11 +14,6 @@ public class DelayDecrementor : MonoBehaviour
 
     public Action<float> DelayDecremented;
 
-    private void Awake()
-    {
-        
-    }
-
     public void Init(float startDelay)
     {
         _timer = GetComponent<Timer>();

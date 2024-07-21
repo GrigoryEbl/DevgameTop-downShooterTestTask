@@ -85,6 +85,50 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &4254357841722576449
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8381535913826547827}
+  - component: {fileID: 5685635935123401737}
+  m_Layer: 0
+  m_Name: TimerLifeTime
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8381535913826547827
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4254357841722576449}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1850157289179995801}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5685635935123401737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4254357841722576449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a875d10c87051da47954da30d9f614f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4302730461727819473
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,7 +210,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -5017,6 +5061,8 @@ GameObject:
   - component: {fileID: 1850157289179995801}
   - component: {fileID: 1503891516595500974}
   - component: {fileID: 4223239103818349770}
+  - component: {fileID: 5785378467216144669}
+  - component: {fileID: 8169177801509451484}
   m_Layer: 0
   m_Name: Pistol
   m_TagString: Untagged
@@ -5032,7 +5078,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6993717542628135964}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.101, z: 0.763}
   m_LocalScale: {x: 0.14333375, y: 0.15484937, z: 0.64253527}
   m_ConstrainProportionsScale: 0
@@ -5040,6 +5086,7 @@ Transform:
   - {fileID: 4204233345641137054}
   - {fileID: 1219421594196354762}
   - {fileID: 5400254820324820346}
+  - {fileID: 8381535913826547827}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1503891516595500974
@@ -5057,8 +5104,6 @@ MonoBehaviour:
   _shootPoint: {fileID: 4204233345641137054}
   _damage: 3
   _speedShoot: 2
-  _particleSystem: {fileID: 3647850241362531916}
-  _distance: 0
 --- !u!114 &4223239103818349770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5071,6 +5116,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a875d10c87051da47954da30d9f614f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5785378467216144669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6993717542628135964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce33b3be91244a54c964660c3c4d6873, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _timer: {fileID: 5685635935123401737}
+--- !u!65 &8169177801509451484
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6993717542628135964}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7350352638526000216
 GameObject:
   m_ObjectHideFlags: 0
