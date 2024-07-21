@@ -32,7 +32,7 @@ public class EnemySpawner : Spawner
             {
                 if (IsVisible(Camera.main, position) == false)
                 {
-                    Instantiate(GetObject(), position, Quaternion.identity);
+                    Instantiate(GetObject(), position, Quaternion.identity,transform);
                     StartTimer();
                     return;
                 }

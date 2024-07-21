@@ -27,7 +27,7 @@ public class BonusSpawner : Spawner
             {
                 if (IsVisible(Camera.main, position))
                 {
-                    Instantiate(GetObject(), position, Quaternion.identity);
+                    Instantiate(GetObject(), position, Quaternion.identity, transform);
                     StartTimer();
                     return;
                 }

@@ -30,7 +30,7 @@ public class WeaponSpawner : Spawner
             {
                 if (IsVisible(Camera.main, position))
                 {
-                    Instantiate(GetObject(), position, Quaternion.identity);
+                    Instantiate(GetObject(), position, Quaternion.identity, transform);
                     StartTimer();
                     return;
                 }
@@ -63,6 +63,6 @@ public class WeaponSpawner : Spawner
 
     private string GetPlayerWeaponName()
     {
-       return _playerWeaponCell.GetComponentInChildren<Weapon>().Name;
+        return _playerWeaponCell.GetComponentInChildren<Weapon>().Name;
     }
 }
