@@ -166,7 +166,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -5032,8 +5032,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6993717542628135964}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.101, z: 0.763}
+  m_LocalRotation: {x: -0, y: -0.9025391, z: -0, w: -0.43060791}
+  m_LocalPosition: {x: -13.978077, y: 1.5840001, z: 0.25821894}
   m_LocalScale: {x: 0.14333375, y: 0.15484937, z: 0.64253527}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5057,8 +5057,7 @@ MonoBehaviour:
   _shootPoint: {fileID: 4204233345641137054}
   _damage: 3
   _speedShoot: 2
-  _particleSystem: {fileID: 3647850241362531916}
-  _distance: 0
+  _name: Pistol
 --- !u!114 &4223239103818349770
 MonoBehaviour:
   m_ObjectHideFlags: 0

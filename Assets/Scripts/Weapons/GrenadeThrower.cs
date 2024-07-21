@@ -5,6 +5,11 @@ public class GrenadeThrower : Weapon
 {
     [SerializeField] private Grenade _grenadePrefab;
 
+    private void Awake()
+    {
+        Init();
+    }
+
     public override void Shoot()
     {
         if (CanShoot())

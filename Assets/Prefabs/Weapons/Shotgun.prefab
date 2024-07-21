@@ -220,7 +220,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -5204,7 +5204,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8763743672123524338}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0.6130174, z: -0, w: -0.79006946}
   m_LocalPosition: {x: 0, y: 2.334, z: 3.238}
   m_LocalScale: {x: 0.14333375, y: 0.15484937, z: 0.64253527}
   m_ConstrainProportionsScale: 0
@@ -5229,7 +5229,7 @@ MonoBehaviour:
   _shootPoint: {fileID: 6838463657454174856}
   _damage: 2
   _speedShoot: 1.5
-  _particleSystem: {fileID: 5625378656572599230}
+  _name: Shotgun
   _distance: 7
 --- !u!114 &6746847292261860502
 MonoBehaviour:
