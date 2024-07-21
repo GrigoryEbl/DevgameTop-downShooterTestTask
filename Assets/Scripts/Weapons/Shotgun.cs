@@ -2,9 +2,15 @@ using UnityEngine;
 
 public class Shotgun : Weapon
 {
-    [SerializeField] private float _distance;
     private readonly int _pelletCount = 5;
     private readonly float _spreadAngle = 10f;
+
+    [SerializeField] private float _distance;
+
+    private void Awake()
+    {
+        Init();
+    }
 
     public override void Shoot()
     {

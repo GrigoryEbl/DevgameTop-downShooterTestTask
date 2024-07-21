@@ -18,7 +18,13 @@ public class Weapon : MonoBehaviour
 
     private void Awake()
     {
+        Init();
+    }
+
+    public void Init()
+    {
         _timer = GetComponent<Timer>();
+
     }
 
     public virtual void Shoot()
@@ -32,7 +38,6 @@ public class Weapon : MonoBehaviour
                 if (hitInfo.collider.TryGetComponent(out Health health))
                 {
                     ApplyDamage(health);
-                    print("shoot");
                 }
             }
 
@@ -55,5 +60,9 @@ public class Weapon : MonoBehaviour
 
     public void VisualizeEffectShoot()
     {
+        //
+        //
+        //
+        //
     }
 }

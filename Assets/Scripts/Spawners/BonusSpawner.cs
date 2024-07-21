@@ -1,9 +1,7 @@
 using UnityEngine;
 
-public class WeaponSpawner : Spawner
+public class BonusSpawner : Spawner
 {
-    [SerializeField] private Transform _playerWeaponCell;
-
     private void Awake()
     {
         Init();
@@ -21,7 +19,7 @@ public class WeaponSpawner : Spawner
 
     public override void Spawn()
     {
-        Vector3 position = GetRandomPosition();
+        Vector3 position = GetRandomPosition(ScanObstacleRadius);
 
         if (IsFieldView)
         {
@@ -35,7 +33,7 @@ public class WeaponSpawner : Spawner
                 }
                 else
                 {
-                    position = GetRandomPosition();
+                    position = GetRandomPosition(ScanObstacleRadius);
                 }
             }
         }
@@ -43,25 +41,7 @@ public class WeaponSpawner : Spawner
 
     public override GameObject GetObject()
     {
-        GameObject gameObject = GetRandomOdject();
-
-        if (gameObject.TryGetComponent(out Weapon weapon)
-            && weapon.Name == GetPlayerWeaponName())
-        {
-            gameObject = GetRandomOdject();
-        }
-
-        return gameObject;
-    }
-
-    private GameObject GetRandomOdject()
-    {
         GameObject randomObject = ObjectsPrefabs[Random.Range(0, ObjectsPrefabs.Length)];
         return randomObject;
-    }
-
-    private string GetPlayerWeaponName()
-    {
-       return _playerWeaponCell.GetComponentInChildren<Weapon>().Name;
     }
 }

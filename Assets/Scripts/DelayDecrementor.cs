@@ -38,8 +38,6 @@ public class DelayDecrementor : MonoBehaviour
             _currentDelay -= _decrementedValue;
             _timer.StartWork(_delay);
             DelayDecremented?.Invoke(_currentDelay);
-            print("Spawn delay:" + _currentDelay);
         }
-       
     }
 }

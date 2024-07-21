@@ -5,29 +5,16 @@ public abstract class Spawner : MonoBehaviour
     [SerializeField] private float _startDelay;
     [SerializeField] private GameObject[] _objectPrefabs;
     [SerializeField] private bool _isFieldView;
+    [SerializeField] private float _scanObstacleRadius;
 
     private Timer _timer;
     private float _currentDelay;
 
+    public float ScanObstacleRadius => _scanObstacleRadius;
     public bool IsFieldView => _isFieldView;
     public float CurrentDelay => _currentDelay;
     public GameObject[] ObjectsPrefabs => _objectPrefabs;
     public Timer Timer => _timer;
-
-    private void Awake()
-    {
-        Init();
-    }
-   
-    private void OnEnable()
-    {
-        _timer.TimeEmpty += OnTimeEmpty;
-    }
-
-    private void OnDisable()
-    {
-        _timer.TimeEmpty -= OnTimeEmpty;
-    }
 
     public void Init()
     {
@@ -43,13 +30,12 @@ public abstract class Spawner : MonoBehaviour
 
     public abstract void Spawn();
 
-    public Vector3 GetRandomPosition()
+    public virtual Vector3 GetRandomPosition(float radius)
     {
         float maxX = 20f;
         float minX = -20f;
         float maxZ = 15f;
         float minZ = -15f;
-        float radius = 1f;
 
         Vector3 randomPosition = new Vector3(Random.Range(minX, maxX), 0, (Random.Range(minZ, maxZ)));
         Collider[] colliders = Physics.OverlapSphere(randomPosition, radius);
@@ -58,7 +44,7 @@ public abstract class Spawner : MonoBehaviour
         {
             if (collider.TryGetComponent(out Obstacle obstacle))
             {
-                GetRandomPosition();
+                GetRandomPosition(_scanObstacleRadius);
             }
         }
 
@@ -83,5 +69,4 @@ public abstract class Spawner : MonoBehaviour
     }
 
     public abstract GameObject GetObject();
-    
 }

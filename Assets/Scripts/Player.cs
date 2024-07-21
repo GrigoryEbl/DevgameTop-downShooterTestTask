@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -6,13 +7,10 @@ public class Player : MonoBehaviour
     [SerializeField] private bool _isInvulnerable;
     [SerializeField] private Transform _weaponCell;
 
-    private Transform _transform;
     private Weapon _weapon;
-    private Weapon _previousWeapon;
 
     private void Awake()
     {
-        _transform = transform;
         _weapon = _startWeapon;
     }
 
@@ -23,7 +21,7 @@ public class Player : MonoBehaviour
             Shoot();
         }
     }
-    private int _collisionCount = 0;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out Enemy enemy))
@@ -34,25 +32,41 @@ public class Player : MonoBehaviour
                 Destroy(gameObject);
         }
 
-        if (other.TryGetComponent(out Weapon weapon))
+        if (other.TryGetComponent(out Bonus bonus))
         {
-            _collisionCount++;
-            SetWeapon(weapon);
-            print("Collision weapon: " + _collisionCount);
+            bonus.ApplyEffect(this);
             return;
         }
     }
 
     public void SetWeapon(Weapon weapon)
     {
-        weapon.GetComponent<BoxCollider>().enabled = false;
+        weapon = Instantiate(weapon, _weaponCell.transform.position, Quaternion.identity, _weaponCell.transform);
         Destroy(_weapon.gameObject);
-        _weapon = null;
         _weapon = weapon;
-        _weapon.transform.SetParent(_weaponCell);
-        _weapon.transform.position = _weaponCell.position;
+        _startWeapon = _weapon;
         _weapon.transform.rotation = _weaponCell.rotation;
-        print("Set new weapon: " + _weapon.name);
+    }
+
+    public IEnumerator SpeedBoost(float duration)
+    {
+        float addedSpeed = 1.5f;
+        Mover mover = GetComponent<Mover>();
+
+        mover.ChangeSpeed(mover.CurrentSpeed + addedSpeed);
+
+        yield return new WaitForSeconds(duration);
+
+        mover.ChangeSpeed(mover.CurrentSpeed - addedSpeed);
+    }
+
+    public IEnumerator Invincibility(float duration)
+    {
+        _isInvulnerable = true;
+
+        yield return new WaitForSeconds(duration);
+
+        _isInvulnerable = false;
     }
 
     private void Shoot()
