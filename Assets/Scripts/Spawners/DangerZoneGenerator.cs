@@ -1,72 +1,57 @@
-
-using System.Collections.Generic;
-
 using UnityEngine;
 
 public class DangerZoneGenerator : MonoBehaviour
 {
     [SerializeField] private DangerZone[] _dangerZonesPrefabs;
-    [SerializeField] private Transform _spawnPoints;
-    [SerializeField] private LayerMask obstacleLayer;
-    [SerializeField] private float _minDistance = 6;
 
-    private Transform _spawnPoint;
-    private float _scanObstacleRadius = 9f;
-    private List<Vector3> _positions = new List<Vector3>();
+    private float _scanObstacleRadius = 4.5f;
 
     private void Awake()
     {
         Generate();
     }
 
-    public void Generate()
+    private void Generate()
     {
-
         Vector3 newPosition;
-        int attempts = 0;
-        float maxX = 20f;
-        float minX = -20f;
-        float maxZ = 15f;
-        float minZ = -15f;
-
+        int maxAttempts = 100;
+        int currentAttempts = 0;
 
         for (int i = 0; i < _dangerZonesPrefabs.Length; i++)
         {
             do
             {
-                newPosition = new Vector3(Random.Range(minX, maxX), 1, (Random.Range(minZ, maxZ)));
-                attempts++;
+                newPosition = GetRandomPosition();
+                currentAttempts++;
             }
-            while (!IsValidPosition(newPosition) && attempts < 100);
+            while (IsValidPosition(newPosition) == false && currentAttempts < maxAttempts);
             {
-                if (attempts < 100)
+                if (currentAttempts < maxAttempts)
                 {
-                    _positions.Add(newPosition);
-                    Instantiate(_dangerZonesPrefabs[i], newPosition, Quaternion.identity);
-                }
-                else
-                {
-                    print("ERRORRRRR");
+                    Instantiate(_dangerZonesPrefabs[i], newPosition, Quaternion.identity, transform);
                 }
             }
         }
     }
 
+    private Vector3 GetRandomPosition()
+    {
+        float maxX = 20f;
+        float minX = -20f;
+        float maxZ = 15f;
+        float minZ = -15f;
+
+        return new Vector3(Random.Range(minX, maxX), transform.position.y, (Random.Range(minZ, maxZ)));
+    }
+
     private bool IsValidPosition(Vector3 position)
     {
-        foreach (var existingPosition in _positions)
+        Collider[] hitColliders = Physics.OverlapSphere(position, _scanObstacleRadius);
+
+        foreach (var hitCollider in hitColliders)
         {
-            if (Vector3.Distance(position, existingPosition) < _minDistance)
-            {
+            if (hitCollider.TryGetComponent(out Obstacle obstacle) || hitCollider.TryGetComponent(out DangerZone dangerZone))
                 return false;
-            }
-        }
-
-        Collider[] hitColliders = Physics.OverlapSphere(position, _minDistance, obstacleLayer);
-
-        if (hitColliders.Length > 0)
-        {
-            return false;
         }
 
         return true;
