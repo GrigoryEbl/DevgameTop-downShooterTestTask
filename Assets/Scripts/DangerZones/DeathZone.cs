@@ -14,6 +14,6 @@ public class DeathZone : DangerZone
 
     public override void ApplyEffect(Player player)
     {
-        Destroy(player.gameObject);
+        player.Die();
     }
 }

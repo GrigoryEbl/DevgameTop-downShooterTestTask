@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -10,6 +11,8 @@ public class Player : MonoBehaviour
     private Weapon _weapon;
     private ScoreWallet _scoreWallet;
     private Enemy _enemyInfo;
+
+    public Action Died;
 
     private void Awake()
     {
@@ -45,7 +48,7 @@ public class Player : MonoBehaviour
             if (_isInvulnerable)
                 return;
             else
-                Destroy(gameObject);
+                Die();
         }
 
         if (other.TryGetComponent(out Bonus bonus))
@@ -83,6 +86,11 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(duration);
 
         _isInvulnerable = false;
+    }
+
+    public void Die()
+    {
+        Died?.Invoke();
     }
 
     private void Shoot()
