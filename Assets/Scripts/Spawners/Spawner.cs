@@ -30,7 +30,7 @@ public abstract class Spawner : MonoBehaviour
 
     public abstract void Spawn();
 
-    public virtual Vector3 GetRandomPosition(float radius)
+    public virtual Vector3 GetRandomPosition()
     {
         float maxX = 20f;
         float minX = -20f;
@@ -38,13 +38,13 @@ public abstract class Spawner : MonoBehaviour
         float minZ = -15f;
 
         Vector3 randomPosition = new Vector3(Random.Range(minX, maxX), 0, (Random.Range(minZ, maxZ)));
-        Collider[] colliders = Physics.OverlapSphere(randomPosition, radius);
+        Collider[] colliders = Physics.OverlapSphere(randomPosition, _scanObstacleRadius);
 
         foreach (Collider collider in colliders)
         {
             if (collider.TryGetComponent(out Obstacle obstacle))
             {
-                GetRandomPosition(_scanObstacleRadius);
+                GetRandomPosition();
             }
         }
 

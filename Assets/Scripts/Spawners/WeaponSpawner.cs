@@ -22,7 +22,7 @@ public class WeaponSpawner : Spawner
 
     public override void Spawn()
     {
-        Vector3 position = GetRandomPosition(ScanObstacleRadius);
+        Vector3 position = GetRandomPosition();
 
         if (IsFieldView)
         {
@@ -36,7 +36,7 @@ public class WeaponSpawner : Spawner
                 }
                 else
                 {
-                    position = GetRandomPosition(ScanObstacleRadius);
+                    position = GetRandomPosition();
                 }
             }
         }

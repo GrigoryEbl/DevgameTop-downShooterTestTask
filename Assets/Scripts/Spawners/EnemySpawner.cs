@@ -24,7 +24,7 @@ public class EnemySpawner : Spawner
 
     public override void Spawn()
     {
-        Vector3 position = GetRandomPosition(ScanObstacleRadius);
+        Vector3 position = GetRandomPosition();
 
         if (IsFieldView == false)
         {
@@ -38,7 +38,7 @@ public class EnemySpawner : Spawner
                 }
                 else
                 {
-                    position = GetRandomPosition(ScanObstacleRadius);
+                    position = GetRandomPosition();
                 }
             }
         }
