@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -7,8 +8,12 @@ public class Weapon : MonoBehaviour
     [SerializeField] private int _damage;
     [SerializeField] private float _speedShoot;
     [SerializeField] private string _name;
-    
+    [SerializeField] private ParticleSystem _particleSystem;
+
     private Timer _timer;
+
+    public delegate void HitEnemyEventHandler(Enemy enemy);
+    public event HitEnemyEventHandler HitedEnemy;
 
     public string Name => _name;
     public float SpeedShoot => _speedShoot;
@@ -31,6 +36,8 @@ public class Weapon : MonoBehaviour
     {
         if (CanShoot())
         {
+            VisualizeEffectShoot();
+
             if (Physics.Raycast(_shootPoint.position, _shootPoint.forward, out RaycastHit hitInfo))
             {
                 Debug.DrawRay(ShootPoint.position, _shootPoint.forward * hitInfo.distance, Color.red, 1f);
@@ -38,6 +45,7 @@ public class Weapon : MonoBehaviour
                 if (hitInfo.collider.TryGetComponent(out Health health))
                 {
                     ApplyDamage(health);
+                    InvokEvent(health);
                 }
             }
 
@@ -60,9 +68,11 @@ public class Weapon : MonoBehaviour
 
     public void VisualizeEffectShoot()
     {
-        //
-        //
-        //
-        //
+        _particleSystem.Play();
+    }
+
+    public void InvokEvent(Health health)
+    {
+        HitedEnemy?.Invoke(health.GetComponent<Enemy>());
     }
 }

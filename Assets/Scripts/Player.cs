@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -8,10 +9,28 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform _weaponCell;
 
     private Weapon _weapon;
+    private ScoreWallet _scoreWallet;
+    private Enemy _enemyInfo;
+
+    public Action Died;
 
     private void Awake()
     {
         _weapon = _startWeapon;
+        _scoreWallet = GetComponent<ScoreWallet>();
+    }
+
+    private void OnEnable()
+    {
+        _weapon.HitedEnemy += AddEnemyInfo;
+    }
+
+    private void OnDisable()
+    {
+        _weapon.HitedEnemy -= AddEnemyInfo;
+
+        if (_enemyInfo != null)
+            _enemyInfo.Died -= _scoreWallet.IncreaseScore;
     }
 
     private void Update()
@@ -29,7 +48,7 @@ public class Player : MonoBehaviour
             if (_isInvulnerable)
                 return;
             else
-                Destroy(gameObject);
+                Die();
         }
 
         if (other.TryGetComponent(out Bonus bonus))
@@ -69,9 +88,27 @@ public class Player : MonoBehaviour
         _isInvulnerable = false;
     }
 
+    public void Die()
+    {
+        Died?.Invoke();
+    }
+
     private void Shoot()
     {
         if (_weapon != null)
             _weapon.Shoot();
+    }
+
+    private void AddEnemyInfo(Enemy enemy)
+    {
+        RemoveEnemyInfo();
+        _enemyInfo = enemy;
+        _enemyInfo.Died += _scoreWallet.IncreaseScore;
+    }
+
+    private void RemoveEnemyInfo()
+    {
+        if (_enemyInfo != null)
+            _enemyInfo.Died -= _scoreWallet.IncreaseScore;
     }
 }

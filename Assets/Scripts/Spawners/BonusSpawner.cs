@@ -19,7 +19,7 @@ public class BonusSpawner : Spawner
 
     public override void Spawn()
     {
-        Vector3 position = GetRandomPosition(ScanObstacleRadius);
+        Vector3 position = GetRandomPosition();
 
         if (IsFieldView)
         {
@@ -27,13 +27,13 @@ public class BonusSpawner : Spawner
             {
                 if (IsVisible(Camera.main, position))
                 {
-                    Instantiate(GetObject(), position, Quaternion.identity);
+                    Instantiate(GetObject(), position, Quaternion.identity, transform);
                     StartTimer();
                     return;
                 }
                 else
                 {
-                    position = GetRandomPosition(ScanObstacleRadius);
+                    position = GetRandomPosition();
                 }
             }
         }

@@ -22,7 +22,7 @@ public class WeaponSpawner : Spawner
 
     public override void Spawn()
     {
-        Vector3 position = GetRandomPosition(ScanObstacleRadius);
+        Vector3 position = GetRandomPosition();
 
         if (IsFieldView)
         {
@@ -30,13 +30,13 @@ public class WeaponSpawner : Spawner
             {
                 if (IsVisible(Camera.main, position))
                 {
-                    Instantiate(GetObject(), position, Quaternion.identity);
+                    Instantiate(GetObject(), position, Quaternion.identity, transform);
                     StartTimer();
                     return;
                 }
                 else
                 {
-                    position = GetRandomPosition(ScanObstacleRadius);
+                    position = GetRandomPosition();
                 }
             }
         }
@@ -63,6 +63,6 @@ public class WeaponSpawner : Spawner
 
     private string GetPlayerWeaponName()
     {
-       return _playerWeaponCell.GetComponentInChildren<Weapon>().Name;
+        return _playerWeaponCell.GetComponentInChildren<Weapon>().Name;
     }
 }

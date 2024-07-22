@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Mover : MonoBehaviour
@@ -8,7 +9,10 @@ public class Mover : MonoBehaviour
     private Transform _transform;
     private Rigidbody _rigidbody;
 
+    public Action<bool> Moved;
+
     public float CurrentSpeed { get; private set; }
+    public bool IsMoving { get; private set; }
 
     private void Awake()
     {
@@ -20,13 +24,18 @@ public class Mover : MonoBehaviour
     public void Move(Vector3 direction)
     {
         _rigidbody.velocity = direction.normalized * CurrentSpeed;
+
+        IsMoving = true;
+        Moved?.Invoke(IsMoving);
     }
 
     public void Rotate(Quaternion targetRotation)
     {
-        targetRotation.x = 0;
-        targetRotation.z = 0;
-        _rigidbody.rotation = Quaternion.Slerp(_transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
+        Vector3 targetEulerAngles = targetRotation.eulerAngles;
+        targetEulerAngles.x = 0;
+        targetEulerAngles.z = 0;
+        Quaternion adjustedRotation = Quaternion.Euler(targetEulerAngles);
+        _rigidbody.rotation = Quaternion.Slerp(_transform.rotation, adjustedRotation, _rotationSpeed * Time.deltaTime);
     }
 
     public void Stop()
@@ -34,6 +43,8 @@ public class Mover : MonoBehaviour
         if (_rigidbody != null)
         {
             _rigidbody.velocity = Vector3.zero;
+            IsMoving = false;
+            Moved?.Invoke(IsMoving);
         }
     }
 

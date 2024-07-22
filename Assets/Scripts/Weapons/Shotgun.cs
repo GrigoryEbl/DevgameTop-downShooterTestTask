@@ -4,8 +4,7 @@ public class Shotgun : Weapon
 {
     private readonly int _pelletCount = 5;
     private readonly float _spreadAngle = 10f;
-
-    [SerializeField] private float _distance;
+    private float _distance = 7f;
 
     private void Awake()
     {
@@ -16,6 +15,8 @@ public class Shotgun : Weapon
     {
         if (CanShoot())
         {
+            VisualizeEffectShoot();
+
             for (int i = 0; i < _pelletCount; i++)
             {
                 Vector3 direction = GetRandomDirectionInCone(transform.forward, _spreadAngle);
@@ -24,12 +25,10 @@ public class Shotgun : Weapon
                 {
                     Debug.DrawRay(ShootPoint.position, direction * hitInfo.distance, Color.red, 1f);
 
-                    VisualizeEffectShoot();
-
                     if (hitInfo.collider.TryGetComponent(out Health health))
                     {
                         ApplyDamage(health);
-                        print("Shoot shotgun");
+                        InvokEvent(health);
                     }
                 }
             }
