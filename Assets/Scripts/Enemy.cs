@@ -1,13 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-   [SerializeField] private int _pointsForKilling;
+   [SerializeField] private int _scoresForKilling;
 
-    public int GetPoints()
+    public Action<int> Died;
+
+    private void OnDestroy()
     {
-        return _pointsForKilling;
+        Died?.Invoke(_scoresForKilling);
     }
 }

@@ -31,9 +31,11 @@ public class Mover : MonoBehaviour
 
     public void Rotate(Quaternion targetRotation)
     {
-        targetRotation.x = 0;
-        targetRotation.z = 0;
-        _rigidbody.rotation = Quaternion.Slerp(_transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
+        Vector3 targetEulerAngles = targetRotation.eulerAngles;
+        targetEulerAngles.x = 0;
+        targetEulerAngles.z = 0;
+        Quaternion adjustedRotation = Quaternion.Euler(targetEulerAngles);
+        _rigidbody.rotation = Quaternion.Slerp(_transform.rotation, adjustedRotation, _rotationSpeed * Time.deltaTime);
     }
 
     public void Stop()

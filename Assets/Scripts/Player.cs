@@ -8,10 +8,26 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform _weaponCell;
 
     private Weapon _weapon;
+    private ScoreWallet _scoreWallet;
+    private Enemy _enemyInfo;
 
     private void Awake()
     {
         _weapon = _startWeapon;
+        _scoreWallet = GetComponent<ScoreWallet>();
+    }
+
+    private void OnEnable()
+    {
+        _weapon.HitedEnemy += AddEnemyInfo;
+    }
+
+    private void OnDisable()
+    {
+        _weapon.HitedEnemy -= AddEnemyInfo;
+
+        if (_enemyInfo != null)
+            _enemyInfo.Died -= _scoreWallet.IncreaseScore;
     }
 
     private void Update()
@@ -73,5 +89,18 @@ public class Player : MonoBehaviour
     {
         if (_weapon != null)
             _weapon.Shoot();
+    }
+
+    private void AddEnemyInfo(Enemy enemy)
+    {
+        RemoveEnemyInfo();
+        _enemyInfo = enemy;
+        _enemyInfo.Died += _scoreWallet.IncreaseScore;
+    }
+
+    private void RemoveEnemyInfo()
+    {
+        if (_enemyInfo != null)
+            _enemyInfo.Died -= _scoreWallet.IncreaseScore;
     }
 }
