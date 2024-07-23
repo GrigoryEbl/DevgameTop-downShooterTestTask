@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Button))]
 public class SceneLoader : MonoBehaviour
 {
     [SerializeField] private int _sceneNumber;
@@ -16,7 +17,6 @@ public class SceneLoader : MonoBehaviour
     private void OnEnable()
     {
         _button.onClick.AddListener(LoadScene);
-        print("Added listener " + name);
     }
 
     private void OnDisable()
@@ -26,7 +26,7 @@ public class SceneLoader : MonoBehaviour
 
     private void LoadScene()
     {
-        print("click " + name);
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene(_sceneNumber);
     }
 }

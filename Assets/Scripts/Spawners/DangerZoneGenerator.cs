@@ -4,7 +4,7 @@ public class DangerZoneGenerator : MonoBehaviour
 {
     [SerializeField] private DangerZone[] _dangerZonesPrefabs;
 
-    private float _scanObstacleRadius = 4.5f;
+    private float _scanObstacleRadius;
 
     private void Awake()
     {
@@ -23,6 +23,7 @@ public class DangerZoneGenerator : MonoBehaviour
             {
                 newPosition = GetRandomPosition();
                 currentAttempts++;
+                SetScanRadius(_dangerZonesPrefabs[i]);
             }
             while (IsValidPosition(newPosition) == false && currentAttempts < maxAttempts);
             {
@@ -55,5 +56,16 @@ public class DangerZoneGenerator : MonoBehaviour
         }
 
         return true;
+    }
+
+    private void SetScanRadius(DangerZone dangerZone)
+    {
+        float scanRadiusDeathZone = 3.5f;
+        float scanRadiusSlowingZone = 4.5f;
+
+        if (dangerZone is DeathZone)
+            _scanObstacleRadius = scanRadiusDeathZone;
+        else if (dangerZone is SlowingZone)
+            _scanObstacleRadius = scanRadiusSlowingZone;
     }
 }

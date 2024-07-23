@@ -8,11 +8,13 @@ public class Grenade : MonoBehaviour
     private float _explosionDistance = 0.1f;
     private float _explosionRadius = 2f;
     private int _damage = 10;
+    private Transform _parent;
 
-    public void Init(Vector3 targetPosition)
+    public void Init(Vector3 targetPosition, Transform parent)
     {
         _transform = transform;
         _targetPosition = targetPosition;
+        _parent = parent;
     }
 
     private void Update()
@@ -30,7 +32,10 @@ public class Grenade : MonoBehaviour
         foreach (Collider collider in colliders)
         {
             if (collider.TryGetComponent(out Health health))
+            {
                 health.TakeDamage(_damage);
+                _parent.GetComponent<Weapon>().InvokEvent(health);
+            }
         }
 
         Destroy(gameObject);

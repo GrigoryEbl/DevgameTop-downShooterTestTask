@@ -1,5 +1,3 @@
-
-
 public class InvincibilityBonus : Bonus
 {
     void Start()

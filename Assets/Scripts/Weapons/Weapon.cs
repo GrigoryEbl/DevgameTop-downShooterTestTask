@@ -1,7 +1,6 @@
-using System;
-using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(Timer))]
 public class Weapon : MonoBehaviour
 {
     [SerializeField] private Transform _shootPoint;

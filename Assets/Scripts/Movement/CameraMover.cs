@@ -1,16 +1,14 @@
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class CameraMover : MonoBehaviour
 {
     [SerializeField] private Transform _player;
     [SerializeField] private float _speed = 3f;
 
-    [Header("Positions")]
-    [SerializeField] private float _maxPositionX = 40f;
-    [SerializeField] private float _minPositionX = -40;
-    [SerializeField] private float _maxPositionZ = -25f;
-    [SerializeField] private float _minPositionZ = -60f;
+    [SerializeField] private float _maxPositionX;
+    [SerializeField] private float _minPositionX;
+    [SerializeField] private float _maxPositionZ;
+    [SerializeField] private float _minPositionZ;
 
     private Vector3 _target;
     private Transform _transform;
@@ -35,7 +33,6 @@ public class CameraMover : MonoBehaviour
 
         clampedPosition.x = Mathf.Clamp(clampedPosition.x, _minPositionX, _maxPositionX);
         clampedPosition.z = Mathf.Clamp(clampedPosition.z, _minPositionZ, _maxPositionZ);
-
         _transform.position = clampedPosition;
     }
 }

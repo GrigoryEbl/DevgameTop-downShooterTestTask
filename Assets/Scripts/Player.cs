@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(ScoreWallet))]
 public class Player : MonoBehaviour
 {
     [SerializeField] private Weapon _startWeapon;
@@ -65,6 +66,7 @@ public class Player : MonoBehaviour
         _weapon = weapon;
         _startWeapon = _weapon;
         _weapon.transform.rotation = _weaponCell.rotation;
+        _weapon.HitedEnemy += AddEnemyInfo;
     }
 
     public IEnumerator SpeedBoost(float duration)
