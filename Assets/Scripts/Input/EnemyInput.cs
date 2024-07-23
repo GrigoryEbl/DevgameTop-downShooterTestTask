@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof (NavMeshAgent))]
 public class EnemyInput : MonoBehaviour
 {
     [SerializeField] private float _speed;

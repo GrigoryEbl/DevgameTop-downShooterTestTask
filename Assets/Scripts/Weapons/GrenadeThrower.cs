@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 
 public class GrenadeThrower : Weapon
@@ -20,7 +19,7 @@ public class GrenadeThrower : Weapon
 
                 if (Physics.Raycast(ray, out RaycastHit hit))
                 {
-                    Instantiate(_grenadePrefab, transform.position, Quaternion.identity).Init(hit.point);
+                    Instantiate(_grenadePrefab, transform.position, Quaternion.identity).Init(hit.point, transform);
                 }
 
                 Debug.DrawRay(ShootPoint.position, ShootPoint.forward * hitInfo.distance, Color.red, 1f);

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3124285023871706660}
   - component: {fileID: 8852142456097571057}
   - component: {fileID: 3634860231104875891}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 5651333026685491013}
   - component: {fileID: 3243726148168671598}
   - component: {fileID: 5222376055908700847}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Soldier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -143,7 +143,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 0
 --- !u!136 &2329166674098775421
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -217,7 +217,7 @@ GameObject:
   - component: {fileID: 8598950933172460799}
   - component: {fileID: 6685385754249820233}
   - component: {fileID: 7487468118853880179}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}

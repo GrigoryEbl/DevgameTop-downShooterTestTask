@@ -4,8 +4,10 @@ using UnityEngine;
 public class ScoresView : MonoBehaviour
 {
     [SerializeField] private TMP_Text _text;
-    [SerializeField] private string _scoreText;
     [SerializeField] private ScoreWallet _wallet;
+
+    private string _scoreText = "Score: ";
+    private string _newReccordText = "New reccord: ";
 
     private void OnEnable() => _wallet.ValueChanged += OnValueChanged;
 
@@ -13,11 +15,19 @@ public class ScoresView : MonoBehaviour
 
     public void ShowReccord()
     {
-        _text.text = _scoreText + _wallet.GetReccord().ToString();
+        if (_wallet.IsNewReccord)
+            ShowScores(_newReccordText, _wallet.GetReccord());
+        else
+            ShowScores(_scoreText, _wallet.GetReccord());
     }
 
     private void OnValueChanged(int value)
     {
-        _text.text = _scoreText + value.ToString();
+        ShowScores(_scoreText, value);
+    }
+
+    private void ShowScores(string text, int value)
+    {
+        _text.text = text + value.ToString();
     }
 }

@@ -38,4 +38,4 @@ public class SlowingZone : DangerZone
             _mover.ChangeSpeed(_decreaseSpeed);
         }
     }
-}
+} 
