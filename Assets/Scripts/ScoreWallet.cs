@@ -9,10 +9,12 @@ public class ScoreWallet : MonoBehaviour
 
     public Action<int> ValueChanged;
 
+    public bool IsNewReccord => _isNewReccord;
+
     private void Start()
     {
         _currentReccord = PlayerPrefs.GetInt("Reccord", 0);
-
+        _value = 0;
         ValueChanged?.Invoke(_value);
     }
 
@@ -23,7 +25,7 @@ public class ScoreWallet : MonoBehaviour
 
         _value += value;
 
-        if (_currentReccord < _value)
+        if (_value > _currentReccord)
         {
             PlayerPrefs.SetInt("Reccord", _value);
             _isNewReccord = true;
@@ -36,7 +38,7 @@ public class ScoreWallet : MonoBehaviour
 
     public int GetReccord()
     {
-        if (_currentReccord > _value)
+        if (_isNewReccord)
             return _value;
         return _currentReccord;
     }

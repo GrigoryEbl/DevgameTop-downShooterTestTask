@@ -902,7 +902,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _text: {fileID: 1035037435}
-  _scoreText: 'Scroes: '
   _wallet: {fileID: 1326055238}
 --- !u!114 &260315316
 MonoBehaviour:
@@ -1939,7 +1938,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1036219184}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11500000, guid: 5452d5075d8aea54a8eba43157c0e69b, type: 3}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1036219184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2276,7 +2287,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _text: {fileID: 21290323}
-  _scoreText: new reccord
   _wallet: {fileID: 1326055238}
 --- !u!1 &1326055228
 GameObject:
@@ -2380,7 +2390,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startWeapon: {fileID: 618145539}
-  _isInvulnerable: 0
+  _isInvulnerable: 1
   _weaponCell: {fileID: 1075446008}
 --- !u!54 &1326055235
 Rigidbody:
