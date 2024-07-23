@@ -35,7 +35,6 @@ public class ScoreWallet : MonoBehaviour
         ValueChanged?.Invoke(_value);
     }
 
-
     public int GetReccord()
     {
         if (_isNewReccord)
